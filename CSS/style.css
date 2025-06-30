@@ -1,0 +1,238 @@
+:root {
+  /* Primary */
+  --primary: #5ba4a4;
+
+  /* Neutral */
+  --background: #effafa;
+  --filter-tablets: #eef6f6;
+  --dark-grayish-cyan: #7b8e8e;
+  --very-dark-grayish-cyan: #2c3a3a;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "League Spartan", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  background-color: var(--background);
+  padding: 240px 0 100px;
+  position: relative;
+}
+body::after {
+  content: "";
+  width: 100vw;
+  aspect-ratio: 120 / 13;
+  background-color: var(--primary);
+  position: absolute;
+  top: 0;
+  background-image: url("../images/bg-header-desktop.svg");
+}
+
+
+/* container */
+.container {
+  margin: 0 auto;
+  width: 1000px;
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: 13px;
+    padding: 210px 0 60px;
+  }
+  body::after {
+    aspect-ratio: 125 / 52;
+    background-image: url("../images/bg-header-mobile.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  /* container */
+  .container {
+    width: 100%;
+    padding: 20px;
+  }
+}
+
+
+.job {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  padding: 28px 34px;
+  box-shadow: 0 10px 20px #5ba4a41a;
+}
+
+.job.featured {
+  border-left: 5px solid var(--primary);
+}
+.job.featured .info p span span:last-child {
+  display: block;
+}
+.job.new .info p span span:first-child {
+  display: block;
+}
+
+.job .info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.job .info p {
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 16px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.job .info p > span {
+  display: flex;
+  align-items: center;
+}
+
+.job .info p span span {
+  color: white;
+  border-radius: 100px;
+  padding: 6px 8px;
+  font-size: 11px;
+  letter-spacing: .9px;
+  font-weight: 600;
+  margin-left: 6px;
+  display: none;
+}
+
+.job .info p span span:first-child {
+  background-color: var(--primary);
+}
+.job .info p span span:last-child {
+  background-color: var(--very-dark-grayish-cyan);
+}
+
+.job .info h3 {
+  color: var(--very-dark-grayish-cyan);
+  font-size: 23px;
+  margin: 10px 0;
+  transition: .3s;
+  cursor: pointer;
+}
+
+.job .info h3:hover {
+  color: var(--primary);
+}
+
+.job .info > div > div {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  color: var(--dark-grayish-cyan);
+}
+
+.job .info > div > div span {
+  position: relative;
+}
+.job .info > div > div span:not(:last-of-type)::after {
+  content: "";
+  position: absolute;
+  aspect-ratio: 1;
+  top: 50%;
+  transform: translateY(-50%);
+  right: -17px;
+  width: 4px;
+  background-color: var(--dark-grayish-cyan);
+  border-radius: 50%;
+}
+
+.job .tags {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.job .tags span {
+  color: var(--primary);
+  background-color: var(--background);
+  border-radius: 4px;
+  padding: 7px 11px;
+  font-weight: 700;
+  transition: .3s;
+  cursor: pointer;
+}
+
+.job .tags span:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+@media (max-width: 600px) {
+  .job {
+    align-items: start;
+    flex-direction: column;
+    position: relative;
+    margin-bottom: 40px;
+    border-radius: 5px;
+    padding: 38px 16px 18px;
+  }
+  
+  .job.featured {
+    border-left: 6px solid var(--primary);
+  }
+  .job .info {
+    border-bottom: 1px solid #c3c8c8;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+    width: 100%;
+  }
+
+  .job .info img {
+    position: absolute;
+    width: 54px;
+    top: 0;
+    left: 14px;
+    transform: translateY(-50%);
+  }
+  
+  .job .tags {
+    flex-wrap: wrap;
+  }
+}
+
+/* filter */
+.filter {
+  position: absolute;
+  width: 1000px;
+  left: 50%;
+  top: 156px;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  padding: 24px 80px 24px 34px;
+  box-shadow: 0 10px 20px #5ba4a41a;
+  z-index: 1;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filter .clear {
+  position: absolute;
+  top: 50%;
+  right: 34px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  transition: .3s;
+  text-decoration: underline;
+  color: var(--dark-grayish-cyan);
+}
+
+.filter .clear:hover {
+  color: var(--very-dark-grayish-cyan);
+}
