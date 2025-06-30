@@ -23,12 +23,14 @@ body {
 }
 body::after {
   content: "";
-  width: 100vw;
+  width: 100%;
   aspect-ratio: 120 / 13;
   background-color: var(--primary);
   position: absolute;
   top: 0;
   background-image: url("../images/bg-header-desktop.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 
@@ -41,13 +43,12 @@ body::after {
 @media (max-width: 600px) {
   body {
     font-size: 13px;
-    padding: 210px 0 60px;
+    padding: 240px 0 60px;
   }
   body::after {
     aspect-ratio: 125 / 52;
     background-image: url("../images/bg-header-mobile.svg");
-    background-repeat: no-repeat;
-    background-size: cover;
+
   }
   /* container */
   .container {
@@ -235,4 +236,59 @@ body::after {
 
 .filter .clear:hover {
   color: var(--very-dark-grayish-cyan);
+}
+
+.filter > span {
+  color: var(--primary);
+  background-color: var(--background);
+  border-radius: 4px;
+  padding: 7px 11px;
+  font-weight: 700;
+  position: relative;
+  margin-right: 28px;
+}
+
+.filter > span span {
+  background-color: var(--primary);
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 4px 4px 0;
+  height: 100%;
+  padding: 0 7px;
+  top: 0;
+  left: 100%;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.filter > span span:hover {
+  background-color: var(--very-dark-grayish-cyan);
+}
+
+@media (max-width: 600px) {
+  .filter {
+    width: calc(100% - 40px);
+    padding: 16px 60px 16px 22px;
+    gap: 8px;
+  }
+  
+  .filter .clear {
+    right: 22px;
+    font-size: 12px;
+  }
+  .filter > span {
+    font-size: 10px;
+    padding: 5px 8px;
+    margin-right: 18px;
+  }
+  
+  .filter > span span {
+    padding: 0 0;
+    width: 18px;
+  }
+  .filter > span span img {
+    width: 57%;
+  }
 }

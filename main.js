@@ -1,18 +1,31 @@
 // DOM elements
 const container = document.querySelector(".container")
+const filterBox = document.querySelector(".filter")
+const clearButton = filterBox.querySelector("p")
 
 
 // Variables
 let jobs = []
+let filters = []
 
+
+filterBox.remove()
+clearButton.addEventListener("click", () => {
+  filters = []
+  filterTags()
+})
 
 // Fetching data
 fetch("./data.json").then(res => res.json())
 .then(data => {
   data.forEach(job => {
     container.append(createJobElement(job))
+    let filterTags = [job.role, job.level, ...job.languages, ...job.tools]
+    job.filterTags = filterTags
     jobs.push(job)
   });
+
+
 })
 
 // FUNCTIONS -----------
@@ -83,7 +96,103 @@ function createJobElement(jobObj) {
       tagsDiv.append(toolSpan)
     }
   }
+
+
+    // tags filtering
+    tagsDiv.querySelectorAll("span").forEach(tag => {
+      tag.addEventListener("click", () => {
+        if (!filters.includes(tag.textContent)) {
+  
+          filters.push(tag.textContent)
+          filterTags()
+  
+        }
+      })
+    })
   jobDiv.append(tagsDiv)
 
   return jobDiv
+}
+
+function createFilterSpan(filterTag) {
+  const parentSpan = document.createElement("span")
+  parentSpan.append(filterTag)
+  const removeSpan = document.createElement("span")
+  const img = document.createElement("img")
+  img.src = "./images/icon-remove.svg"
+  removeSpan.append(img)
+  parentSpan.append(removeSpan)
+  removeSpan.addEventListener("click", () => {
+
+    filters.splice(filters.indexOf(filterTag), 1)
+
+    filterTags()
+  })
+  return parentSpan
+}
+
+function filterTags() {
+
+  if (filters.length > 0) {
+
+    document.body.append(filterBox)
+    
+    // removing old spans
+    filterBox.querySelectorAll("span").forEach(span => span.remove())
+
+    // appending filter to filters box
+    for (let tagName of filters) {
+      const tag = createFilterSpan(tagName)
+      filterBox.append(tag)
+    }
+
+    // filtering jobs
+    filterJobs()
+
+
+
+  } else {
+    filterBox.querySelectorAll("span").forEach(span => span.remove())
+    filterBox.remove()
+    container.innerHTML = ""
+    for (let job of jobs) {
+      container.append(createJobElement(job))
+    }
+  }
+
+}
+
+function filterJobs() {
+
+  let filteredJobs = []
+  console.log("new call")
+  jobs.forEach(job => {
+    const jobTags = job.filterTags
+    let tagMatchesCount = 0
+    for (let tag of filters) {
+
+      if (jobTags.includes(tag)) {
+        tagMatchesCount++
+      }
+
+    }
+    console.log("=".repeat(20))
+    console.log(tagMatchesCount)
+
+    if (tagMatchesCount === filters.length) {
+      filteredJobs.push(job)
+    }
+
+  })
+  container.innerHTML = ""
+  for (let job of filteredJobs) {
+    container.append(createJobElement(job))
+  }
+}
+
+function checkIfFiltersDoesNotHave(tag) {
+  for (let i = 0; i < filters.length; i++) {
+    if (filters[i][0] === tag) return false
+  }
+  return true
 }
